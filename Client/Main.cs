@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CitizenFX.Core;
@@ -19,9 +19,16 @@ namespace Client
         public Main()
         {
             RequestAnimSet();
-            RegisterCommands();
+            
+            if ((GetConvar("toastys_crouching_disable_commands", "false") ?? "false").ToLower() == "false")
+            {
+                RegisterCommands();
+            }
 
-            Tick += HandleControls;
+            if ((GetConvar("toastys_crouching_disable_controls", "false") ?? "false").ToLower() == "false")
+            {
+                Tick += HandleControls;
+            }
         }
 
         private void ToggleCrouch()
