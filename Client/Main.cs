@@ -19,7 +19,11 @@ namespace Client
         public Main()
         {
             RequestAnimSet();
-            RegisterCommands();
+            
+            if ((GetConvar("toastys_crouching_disable_commands", "false") ?? "false").ToLower() == "false")
+            {
+                RegisterCommands();
+            }
 
             if ((GetConvar("toastys_crouching_disable_controls", "false") ?? "false").ToLower() == "false")
             {
