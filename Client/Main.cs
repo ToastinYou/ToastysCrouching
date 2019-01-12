@@ -43,6 +43,12 @@ namespace Client
                 // make ped crouch.
                 if (_crouched == true)
                 {
+                    // clears ped movement clipset in case one is already playing.
+                    API.ResetPedMovementClipset(_p.Handle, 0.0f);
+
+                    // clears any anims
+                    _p.Task.ClearAll();
+
                     if (API.HasAnimSetLoaded(_animSetCrouch) == false)
                     {
                         API.RequestAnimSet(_animSetCrouch);
