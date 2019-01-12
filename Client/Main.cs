@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CitizenFX.Core;
@@ -19,9 +19,18 @@ namespace Client
         public Main()
         {
             RequestAnimSet();
-            RegisterCommands();
+            
+            // if commands are not disabled via convar..
+            if ((API.GetConvar("toastys_crouching_disable_commands", "false") ?? "false").ToLower() == "false")
+            {
+                RegisterCommands();
+            }
 
-            Tick += HandleControls;
+            // if controls are not disabled via convar..
+            if ((API.GetConvar("toastys_crouching_disable_controls", "false") ?? "false").ToLower() == "false")
+            {
+                Tick += HandleControls;
+            }
         }
 
         private void ToggleCrouch()
@@ -34,6 +43,12 @@ namespace Client
                 // make ped crouch.
                 if (_crouched == true)
                 {
+                    // clears ped movement clipset in case one is already playing.
+                    API.ResetPedMovementClipset(_p.Handle, 0.0f);
+
+                    // clears any anims
+                    _p.Task.ClearAll();
+
                     if (API.HasAnimSetLoaded(_animSetCrouch) == false)
                     {
                         API.RequestAnimSet(_animSetCrouch);
