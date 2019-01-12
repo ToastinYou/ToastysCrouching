@@ -20,11 +20,13 @@ namespace Client
         {
             RequestAnimSet();
             
+            // if commands are not disabled via convar..
             if ((API.GetConvar("toastys_crouching_disable_commands", "false") ?? "false").ToLower() == "false")
             {
                 RegisterCommands();
             }
 
+            // if controls are not disabled via convar..
             if ((API.GetConvar("toastys_crouching_disable_controls", "false") ?? "false").ToLower() == "false")
             {
                 Tick += HandleControls;
