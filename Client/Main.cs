@@ -80,8 +80,6 @@ namespace Client
             {
                 // Handle code in here for _any_ command.
 
-                Debug.Write($"{source} - {args} - {raw}");
-
                 if (raw != null)
                 {
                     string msg = raw.ToLower();
